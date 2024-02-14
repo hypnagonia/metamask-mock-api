@@ -7,26 +7,26 @@ const path = require('path')
 const { Router } = require('express')
 const fs = require('fs')
 
-const filename = `db.csv`
-const filePath = path.join(process.cwd(), filename)
+const fileName = `db.csv`
+const filePath = path.join(process.cwd(), fileName)
 const delimiter = ';'
 
 function loadFromCSV() {
     try {
-        const fileData = fs.readFileSync(filePath, 'utf-8');
-        const rows = [];
+        const fileData = fs.readFileSync(filePath, 'utf-8')
+        const rows = []
         fileData.trim().split('\n').forEach(line => {
-            rows.push(line.split(delimiter));
-        });
+            rows.push(line.split(delimiter))
+        })
 
-        return rows;
+        return rows
     } catch (error) {
-        console.error('Error reading CSV file:', error);
-        return [];
+        console.error('Error reading CSV file:', error)
+        return []
     }
 }
 
-let assertions = loadFromCSV().map((a, i) => ({
+let assertions = loadFromCSV().map(a => ({
     id: a[0],
     creationAt: a[1],
     assertion: a[2]
@@ -64,7 +64,7 @@ const run = async () => {
     r.get('/api/assertions/', async (req, res) => {
         const { from, to = assertions.length + 1 } = req.query
 
-        const r = assertions.slice(+from - 1, +to);
+        const r = assertions.slice(+from - 1, +to)
         res.json(r)
     })
 
