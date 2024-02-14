@@ -72,7 +72,7 @@ const run = async () => {
         const { assertion } = req.body
         const creationAt = Date.now()
 
-        const a = { assertion: JSON.stringify(assertion), creationAt }
+        const a = { assertion: JSON.stringify(assertion), creationAt, id: assertions.length + 1 }
         assertions.push(a)
         saveToCSV(assertions)
 
