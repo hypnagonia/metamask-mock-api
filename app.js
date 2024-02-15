@@ -27,8 +27,8 @@ function loadFromCSV() {
 }
 
 let assertions = loadFromCSV().map(a => ({
-    id: a[0],
-    creationAt: a[1],
+    id: +a[0],
+    creationAt: +a[1],
     assertion: a[2]
 }))
 
