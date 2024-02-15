@@ -16,7 +16,10 @@ function loadFromCSV() {
         const fileData = fs.readFileSync(filePath, 'utf-8')
         const rows = []
         fileData.trim().split('\n').forEach(line => {
-            rows.push(line.split(delimiter))
+            let fields = line.split(delimiter);
+            if (fields[0] !== "id") {
+                rows.push(fields)
+            }
         })
 
         return rows
