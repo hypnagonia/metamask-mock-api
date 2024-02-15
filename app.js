@@ -26,11 +26,18 @@ function loadFromCSV() {
     }
 }
 
-let assertions = loadFromCSV().map(a => ({
-    id: +a[0],
-    creationAt: +a[1],
-    assertion: a[2]
-}))
+let assertions = loadFromCSV().map(a => {
+
+    const date = new Date(+a[1]);
+    const creationAt = date.toISOString()
+
+    return {
+        id: +a[0],
+        creationAt,
+        assertion: a[2]
+    }
+}
+)
 
 const saveToCSV = (assertions) => {
     const CSVData = assertions
