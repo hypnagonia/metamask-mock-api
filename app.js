@@ -28,12 +28,9 @@ function loadFromCSV() {
 
 let assertions = loadFromCSV().map(a => {
 
-    const date = new Date(+a[1]);
-    const creationAt = date.toISOString()
-
     return {
         id: +a[0],
-        creationAt,
+        creationAt: a[1],
         assertion: a[2]
     }
 }
@@ -77,7 +74,9 @@ const run = async () => {
 
     r.post('/api/assertions/new', async (req, res) => {
         const { assertion } = req.body
-        const creationAt = Date.now()
+        const creationAtDate = Date.now()
+        const date = new Date(creationAtDate);
+        const creationAt = date.toISOString()
 
         const a = { assertion: JSON.stringify(assertion), creationAt, id: assertions.length + 1 }
         assertions.push(a)
