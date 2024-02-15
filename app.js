@@ -65,7 +65,7 @@ const run = async () => {
         const { from, to = assertions.length + 1 } = req.query
 
         const r = assertions.slice(+from - 1, +to)
-        res.json(r)
+        res.json({ assertions: r })
     })
 
     r.post('/api/assertions/new', async (req, res) => {
