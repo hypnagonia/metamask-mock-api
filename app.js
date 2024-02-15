@@ -87,7 +87,7 @@ const run = async () => {
 
     api.use('/', r)
 
-    const port = 3003
+    const port = 3004
     const server = http.createServer(api).listen(port, () => {
         console.log(`API is up at http://localhost:${port}`)
     })
