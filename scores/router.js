@@ -1,21 +1,19 @@
 const { Router } = require('express')
 const { getScores } = require('./service')
+const fs = require('fs')
+const path = require('path')
 
 const scoreRouter = Router({ mergeParams: true })
 
 scoreRouter.get('/', async (req, res) => {
-    const assertions = getAssertions()
-    const { from, to = assertions.length + 1 } = req.query
+    const directoryPath = path.join(__dirname, '../static')
+    const list = fs.readdirSync(directoryPath).filter(r => r.indexOf('.') === -1)
+    res.json(list)
 
-    const r = assertions.slice(+from - 1, +to)
-    res.json({ assertions: r })
 })
 
 scoreRouter.post('/new', async (req, res) => {
     const { locations } = req.body
-    console.log({ locations })
-    // s3://ek-spd-test-awriluhgawrleughaiwef/1706281200000.zip
-
     for (const l of locations) {
         if (l.indexOf('s3://') === -1) {
             res.status(400)

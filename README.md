@@ -47,6 +47,11 @@ curl -X POST \
 '
 ```
 
+list of scores
+```
+http://localhost:3004/api/scores
+```
+
 download
 ```
 http://localhost:3004/files/1706281200000/peer_scores.jsonl
