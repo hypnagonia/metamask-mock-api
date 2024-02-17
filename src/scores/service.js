@@ -56,8 +56,8 @@ function unzipFile(zipFilePath, destinationFolder) {
 }
 
 const getScores = async (bucketName, fileName) => {
-    const destinationPath = path.join(__dirname, '../static/' + fileName)
-    const destinationFolder = path.join(__dirname, '../static/' + fileName.split('.')[0] + '/')
+    const destinationPath = path.join(__dirname, '../../static/' + fileName)
+    const destinationFolder = path.join(__dirname, '../../static/' + fileName.split('.')[0] + '/')
 
     if (!fs.existsSync(destinationFolder)) {
         fs.mkdirSync(destinationFolder, { recursive: true })

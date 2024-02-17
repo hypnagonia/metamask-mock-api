@@ -6,9 +6,14 @@ const path = require('path')
 const scoreRouter = Router({ mergeParams: true })
 
 scoreRouter.get('/', async (req, res) => {
-    const directoryPath = path.join(__dirname, '../static')
-    const list = fs.readdirSync(directoryPath).filter(r => r.indexOf('.') === -1)
-    res.json(list)
+    try {
+        const directoryPath = path.join(__dirname, '../../static')
+        const list = fs.readdirSync(directoryPath).filter(r => r.indexOf('.') === -1)
+        res.json(list)
+    } catch (e) {
+        console.error(e)
+        res.json([])
+    }
 
 })
 
@@ -18,11 +23,13 @@ scoreRouter.post('/new', async (req, res) => {
         if (l.indexOf('s3://') === -1) {
             res.status(400)
             res.json({ error: 'service supports only s3:// bucket location' })
+            return
         }
 
         if (l.indexOf('.zip') === -1) {
             res.status(400)
             res.json({ error: 'service supports only zip archives' })
+            return
         }
 
         const regex = /^s3:\/\/([^\/]+)\/(.+)$/
