@@ -16,8 +16,9 @@ create config, use `.env.example` as reference to create `.env` file and edit it
 run
 
 ```
-node index.js
+npm start 
 ```
+
 
 get
 ```
