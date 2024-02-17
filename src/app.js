@@ -22,7 +22,7 @@ const run = async () => {
     api.use('/api/assertions', assertionRouter)
     api.use('/api/scores', scoreRouter)
 
-    const port = 3004
+    const port = process.env.API_PORT
     const server = http.createServer(api).listen(port, () => {
         console.log(`API is up at http://localhost:${port}`)
     })
