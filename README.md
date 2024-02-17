@@ -37,12 +37,17 @@ put
 ```
 
 
-send a score result snapshot
+notify about new score snapshot
 ```
 curl -X POST \
   http://localhost:3004/api/scores/new/ \
   -H 'Content-Type: application/json' \
   -d '
-{"issuanceDate":"2024-02-16T02:30:00Z","issuer":"did:pkh:eip155:1:0x23d86aa31d4198a78baa98e49bb2da52cd15c6f0","locations":["s3://example-bucket/1708093800000.zip"],"proof":{}}
+{"issuanceDate":"2024-02-16T02:30:00Z","issuer":"did:pkh:eip155:1:0x23d86aa31d4198a78baa98e49bb2da52cd15c6f0","locations":["s3://ek-spd-test-awriluhgawrleughaiwef/1706281200000.zip"],"proof":{}}
 '
+```
+
+download
+```
+http://localhost:3004/files/1706281200000/peer_scores.jsonl
 ```

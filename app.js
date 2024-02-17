@@ -4,14 +4,14 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const os = require('os')
 const path = require('path')
-const {assertionRouter} = require('./assertions/router')
-const {scoreRouter} = require('./scores/router')
+const { assertionRouter } = require('./assertions/router')
+const { scoreRouter } = require('./scores/router')
 
 
 const run = async () => {
     const api = express()
-
-    api.use(express.static(path.join(__dirname, 'static')))
+    console.log(path.join(__dirname, 'static'))
+    api.use('/files', express.static(path.join(__dirname, 'static')))
     api.use(cors())
     api.use(bodyParser.json())
     api.disable('x-powered-by')

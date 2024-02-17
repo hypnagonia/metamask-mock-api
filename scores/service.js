@@ -1,6 +1,7 @@
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const StreamZip = require('node-stream-zip');
+const AWS = require('aws-sdk')
+const fs = require('fs')
+const StreamZip = require('node-stream-zip')
+const path = require('path')
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.YOUR_ACCESS_KEY_ID,
@@ -8,7 +9,6 @@ const s3 = new AWS.S3({
     region: process.env.YOUR_REGION
 })
 
-// Function to download a file from S3
 function downloadFileFromS3(bucketName, fileName, destinationPath) {
     const params = {
         Bucket: bucketName,
@@ -31,7 +31,6 @@ function downloadFileFromS3(bucketName, fileName, destinationPath) {
     });
 }
 
-// Function to unzip a file
 function unzipFile(zipFilePath, destinationFolder) {
     return new Promise((resolve, reject) => {
         const zip = new StreamZip({
@@ -56,12 +55,15 @@ function unzipFile(zipFilePath, destinationFolder) {
     })
 }
 
-const bucketName = 'YOUR_BUCKET_NAME'
-const fileName = 'your-archive.zip'
-const destinationPath = 'local-path-to-save/archive.zip'
-const destinationFolder = 'local-path-to-save/unzipped-files'
+const getScores = async (bucketName, fileName) => {
+    const destinationPath = path.join(__dirname, '../static/' + fileName)
+    const destinationFolder = path.join(__dirname, '../static/' + fileName.split('.')[0] + '/')
 
-const getScores = async (bucketName, fileName, destinationPath) => {
+    if (!fs.existsSync(destinationFolder)) {
+        fs.mkdirSync(destinationFolder, { recursive: true })
+        console.log(`Folder "${destinationFolder}" created.`)
+    }
+
     return downloadFileFromS3(bucketName, fileName, destinationPath)
         .then(() => {
             return unzipFile(destinationPath, destinationFolder)
@@ -72,7 +74,6 @@ const getScores = async (bucketName, fileName, destinationPath) => {
         .catch((error) => {
             console.error('Error:', error)
         })
-
 }
 
 module.exports = {
