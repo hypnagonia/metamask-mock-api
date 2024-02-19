@@ -17,7 +17,7 @@ const run = async () => {
         next()
     })
 
-    api.use('/files', express.static(path.join(__dirname, '../static')))
+    api.use('/files', cors(), express.static(path.join(__dirname, '../static')))
     api.use('/api/assertions', assertionRouter)
     api.use('/api/scores', scoreRouter)
 
