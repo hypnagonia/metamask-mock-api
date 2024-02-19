@@ -25,7 +25,7 @@ let assertions = loadFromCSV().map(a => {
     return {
         id: +a[0],
         creationAt: a[1],
-        assertion: a[2]
+        assertion: JSON.parse(a[2]),
     }
 }
 )
