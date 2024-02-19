@@ -14,7 +14,7 @@ scoreRouter.post('/new', async (req, res) => {
     const { locations } = req.body
     const list = getSnapshotList()
     console.log({locations})
-    
+
     for (const l of locations) {
         if (l.indexOf('s3://') === -1) {
             res.status(400)
@@ -37,7 +37,7 @@ scoreRouter.post('/new', async (req, res) => {
             continue
         }
 
-        await getScores(s3Bucket, s3Key)
+         setTimeout(() => getScores(s3Bucket, s3Key), 0)
     }
 
     res.json({ ok: 'ok' })
