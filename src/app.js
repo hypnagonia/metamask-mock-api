@@ -5,6 +5,7 @@ const cors = require('cors')
 const path = require('path')
 const { assertionRouter } = require('./assertions/router')
 const { scoreRouter } = require('./scores/router')
+const { run: metamaskIndexer } = require('./metamask/service')
 
 const run = async () => {
     const api = express()
@@ -25,6 +26,7 @@ const run = async () => {
         console.log(`API is up at http://localhost:${port}`)
     })
 
+    setTimeout(() => metamaskIndexer(), 0)
     const close = () => server.close()
     return close
 }
