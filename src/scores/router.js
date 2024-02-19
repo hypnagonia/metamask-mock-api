@@ -30,7 +30,8 @@ scoreRouter.post('/new', async (req, res) => {
         const regex = /^s3:\/\/([^\/]+)\/(.+)$/
         const [, s3Bucket, s3Key] = l.match(regex)
 
-        if (list.indexOf(s3Key)) {
+        const snapshotName = s3Key.split('.')[0]
+        if (list.find(l => l === snapshotName)) {
             console.log(`${s3Key} already exists in ${list.join(', ')}. skipping`)
             continue
         }

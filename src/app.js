@@ -2,11 +2,9 @@ const express = require('express')
 const http = require('http')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const os = require('os')
 const path = require('path')
 const { assertionRouter } = require('./assertions/router')
 const { scoreRouter } = require('./scores/router')
-
 
 const run = async () => {
     const api = express()
