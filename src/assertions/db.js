@@ -10,8 +10,14 @@ function loadFromCSV() {
     try {
         const fileData = fs.readFileSync(filePath, 'utf-8')
         const rows = []
-        fileData.trim().split('\n').forEach(line => {
-            rows.push(line.split(delimiter))
+        fileData.trim().split('\n').forEach((line, i) => {
+            const fields = line.split(delimiter)
+            // skip header
+            if (i === 0 && fields[0] === 'id') {
+                return
+            }
+
+            rows.push(fields)
         })
 
         return rows
@@ -25,7 +31,7 @@ let assertions = loadFromCSV().map(a => {
     return {
         id: +a[0],
         creationAt: a[1],
-        assertion: a[2]
+        assertion: JSON.parse(a[2])
     }
 }
 )
