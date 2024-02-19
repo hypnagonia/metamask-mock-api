@@ -57,3 +57,8 @@ download
 ```
 http://localhost:3004/files/1706281200000/peer_scores.jsonl
 ```
+
+metamask input 
+```
+https://mm-api.k3l.io/files/metamask-input.csv
+```
