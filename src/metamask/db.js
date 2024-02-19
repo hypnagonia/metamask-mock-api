@@ -8,7 +8,7 @@ const delimiter = ';'
 
 const appendToCSV = (assertions) => {
     if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, '')
+        fs.writeFileSync(filePath, 'id;timestamp;schema_id;schema_value\n')
     }
 
     try {
