@@ -1,24 +1,19 @@
 const { Router } = require('express')
-const { getScores } = require('./service')
+const { getScores, getSnapshotList } = require('./service')
 const fs = require('fs')
 const path = require('path')
 
 const scoreRouter = Router({ mergeParams: true })
 
 scoreRouter.get('/', async (req, res) => {
-    try {
-        const directoryPath = path.join(__dirname, '../../static')
-        const list = fs.readdirSync(directoryPath).filter(r => r.indexOf('.') === -1)
-        res.json(list)
-    } catch (e) {
-        console.error(e)
-        res.json([])
-    }
-
+    const list = getSnapshotList()
+    res.json(list)
 })
 
 scoreRouter.post('/new', async (req, res) => {
     const { locations } = req.body
+    const list = getSnapshotList()
+
     for (const l of locations) {
         if (l.indexOf('s3://') === -1) {
             res.status(400)
@@ -34,6 +29,12 @@ scoreRouter.post('/new', async (req, res) => {
 
         const regex = /^s3:\/\/([^\/]+)\/(.+)$/
         const [, s3Bucket, s3Key] = l.match(regex)
+
+        if (list.indexOf(s3Key)) {
+            console.log(`${s3Key} already exists in ${list.join(', ')}. skipping`)
+            continue
+        }
+
         await getScores(s3Bucket, s3Key)
     }
 

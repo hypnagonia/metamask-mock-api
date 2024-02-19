@@ -76,6 +76,18 @@ const getScores = async (bucketName, fileName) => {
         })
 }
 
+const getSnapshotList = () => {
+    try {
+        const directoryPath = path.join(__dirname, '../../static')
+        const list = fs.readdirSync(directoryPath).filter(r => r.indexOf('.') === -1)
+        return list
+    } catch (e) {
+        console.error(e)
+        return []
+    }
+}
+
 module.exports = {
-    getScores
+    getScores,
+    getSnapshotList
 }
