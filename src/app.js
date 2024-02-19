@@ -10,7 +10,7 @@ const { scoreRouter } = require('./scores/router')
 
 const run = async () => {
     const api = express()
-    api.use('/files', express.static(path.join(__dirname, 'static')))
+    api.use('/files', express.static(path.join(__dirname, '../static')))
     api.use(cors())
     api.use(bodyParser.json())
     api.disable('x-powered-by')
