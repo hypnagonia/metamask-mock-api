@@ -13,7 +13,8 @@ scoreRouter.get('/', async (req, res) => {
 scoreRouter.post('/new', async (req, res) => {
     const { locations } = req.body
     const list = getSnapshotList()
-
+    console.log({locations})
+    
     for (const l of locations) {
         if (l.indexOf('s3://') === -1) {
             res.status(400)
