@@ -9,7 +9,6 @@ const { run: metamaskIndexer } = require('./metamask/service')
 
 const run = async () => {
     const api = express()
-    api.use('/files', express.static(path.join(__dirname, '../static')))
     api.use(cors())
     api.use(bodyParser.json())
     api.disable('x-powered-by')
@@ -18,6 +17,7 @@ const run = async () => {
         next()
     })
 
+    api.use('/files', express.static(path.join(__dirname, '../static')))
     api.use('/api/assertions', assertionRouter)
     api.use('/api/scores', scoreRouter)
 
