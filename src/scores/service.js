@@ -109,7 +109,10 @@ const addSnapshotMetaData = snapshotId => {
     snapshotMetaData[snapshotId] = getMetabyId(snapshotId)
 }
 const snapshotMetaData = getSnapshotList().reduce((o, a) => {
-    o[a] = getMetabyId(a)
+    const data = getMetabyId(a)
+    if (data.scope && data.effectiveDate) {
+        o[a] = data
+    }
     return o
 }, {})
 
