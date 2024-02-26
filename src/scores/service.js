@@ -69,6 +69,7 @@ const getScores = async (bucketName, fileName) => {
             return unzipFile(destinationPath, destinationFolder)
         })
         .then((unzippedFolderPath) => {
+            addSnapshotMetaData(fileName.split('.')[0])
             console.log(`Archive unzipped to: ${unzippedFolderPath}`)
         })
         .catch((error) => {
@@ -100,6 +101,9 @@ const getMetabyId = (snapshotId) => {
     }
 }
 
+const addSnapshotMetaData = snapshotId => {
+    snapshotMetaData[snapshotId] = getMetabyId(snapshotId)
+}
 const snapshotMetaData = getSnapshotList().reduce((o, a) => {
     o[a] = getMetabyId(a)
     return o
