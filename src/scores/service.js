@@ -87,7 +87,28 @@ const getSnapshotList = () => {
     }
 }
 
+const getMetabyId = (snapshotId) => {
+    const filePath = path.join(__dirname, '../../static/' + snapshotId + '/MANIFEST.json')
+    const data = fs.readFileSync(filePath)
+    const j = JSON.parse(data)
+
+    return {
+        effectiveDate: j.effectiveDate,
+        epoch: j.epoch,
+        issuanceDate: j.issuanceDate,
+        scope: j.scope
+    }
+}
+
+const snapshotMetaData = getSnapshotList().reduce((o, a) => {
+    o[a] = getMetabyId(a)
+    return o
+}, {})
+
+const getSnapMetaData = () => snapshotMetaData
+
 module.exports = {
     getScores,
-    getSnapshotList
+    getSnapshotList,
+    getSnapMetaData
 }

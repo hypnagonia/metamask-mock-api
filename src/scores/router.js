@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getScores, getSnapshotList } = require('./service')
+const { getSnapMetaData, getScores, getSnapshotList } = require('./service')
 const fs = require('fs')
 const path = require('path')
 
@@ -7,6 +7,11 @@ const scoreRouter = Router({ mergeParams: true })
 
 scoreRouter.get('/', async (req, res) => {
     const list = getSnapshotList()
+    res.json(list)
+})
+
+scoreRouter.get('/list', async (req, res) => {
+    const list = getSnapMetaData()
     res.json(list)
 })
 
