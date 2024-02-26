@@ -89,15 +89,19 @@ const getSnapshotList = () => {
 }
 
 const getMetabyId = (snapshotId) => {
-    const filePath = path.join(__dirname, '../../static/' + snapshotId + '/MANIFEST.json')
-    const data = fs.readFileSync(filePath)
-    const j = JSON.parse(data)
+    try {
+        const filePath = path.join(__dirname, '../../static/' + snapshotId + '/MANIFEST.json')
+        const data = fs.readFileSync(filePath)
+        const j = JSON.parse(data)
 
-    return {
-        effectiveDate: j.effectiveDate,
-        epoch: j.epoch,
-        issuanceDate: j.issuanceDate,
-        scope: j.scope
+        return {
+            effectiveDate: j.effectiveDate,
+            epoch: j.epoch,
+            issuanceDate: j.issuanceDate,
+            scope: j.scope
+        }
+    } catch (e) {
+        return { error: e }
     }
 }
 
