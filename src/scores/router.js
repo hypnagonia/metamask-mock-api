@@ -2,6 +2,7 @@ const { Router } = require('express')
 const { getSnapMetaData, getScores, getSnapshotList } = require('./service')
 const fs = require('fs')
 const path = require('path')
+const axios = require('axios')
 
 const scoreRouter = Router({ mergeParams: true })
 
@@ -13,8 +14,8 @@ scoreRouter.get('/', async (req, res) => {
 const indexerCacheUrl = 'http://54.186.233.253/indexer/metamask-connector:b0fbad22d4e0324978cee3ab54d6e98fab6f0b3e2bf6b29b1cf4ff45d8752f84.csv'
 
 scoreRouter.get('/indexer-scores', async (req, res) => {
-    const csv = await fetch(indexerCacheUrl).then(r => r.text())
-    res.text(csv)
+    const { data } = await axios.get(indexerCacheUrl)
+    res.text(data)
 })
 
 scoreRouter.get('/list', async (req, res) => {
@@ -25,7 +26,7 @@ scoreRouter.get('/list', async (req, res) => {
 scoreRouter.post('/new', async (req, res) => {
     const { locations } = req.body
     const list = getSnapshotList()
-    console.log({locations})
+    console.log({ locations })
 
     for (const l of locations) {
         if (l.indexOf('s3://') === -1) {
@@ -49,7 +50,7 @@ scoreRouter.post('/new', async (req, res) => {
             continue
         }
 
-         setTimeout(() => getScores(s3Bucket, s3Key), 0)
+        setTimeout(() => getScores(s3Bucket, s3Key), 0)
     }
 
     res.json({ ok: 'ok' })
