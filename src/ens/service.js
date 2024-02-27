@@ -32,14 +32,7 @@ const fetchSocialAliases = async (address) => {
 async function queryENSSubgraph(address) {
     const query = gql`
         query ($address: Bytes!) {
-            domains(where: { owner: $address }) {
-                id
-                name
-                owner {
-                    id
-                }
-            }
-        }
+           w
     `;
 
     const variables = {

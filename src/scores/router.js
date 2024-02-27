@@ -10,6 +10,13 @@ scoreRouter.get('/', async (req, res) => {
     res.json(list)
 })
 
+const indexerCacheUrl = 'http://54.186.233.253/indexer/metamask-connector:b0fbad22d4e0324978cee3ab54d6e98fab6f0b3e2bf6b29b1cf4ff45d8752f84.csv'
+
+scoreRouter.get('/indexer-scores', async (req, res) => {
+    const csv = await fetch(indexerCacheUrl).then(r => r.text())
+    res.text(csv)
+})
+
 scoreRouter.get('/list', async (req, res) => {
     const list = getSnapMetaData()
     res.json(list)
