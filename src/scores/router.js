@@ -15,7 +15,7 @@ const indexerCacheUrl = 'http://54.186.233.253/indexer/metamask-connector:b0fbad
 
 scoreRouter.get('/indexer-scores', async (req, res) => {
     const { data } = await axios.get(indexerCacheUrl)
-    res.text(data)
+    res.send(data)
 })
 
 scoreRouter.get('/list', async (req, res) => {
