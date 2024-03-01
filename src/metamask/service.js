@@ -12,6 +12,7 @@ const run = () => {
     loop()
 }
 
+let retryCount = 1
 const loop = async () => {
     try {
         console.log(`metamask api getting from ${from}`)
@@ -24,11 +25,13 @@ const loop = async () => {
         from = from + assertions.length
         console.log(`indexed ${assertions.length}, cursor at ${from}`)
         assertions.length === 0 && await new Promise(r => setTimeout(r, delay))
-        setTimeout(loop, 0)
+        setTimeout(loop, 2000)
+        retryCount = 1
     } catch (e) {
         console.error(e)
+        retryCount++
         await new Promise(r => setTimeout(r, delay))
-        setTimeout(loop, 0)
+        setTimeout(loop, 1000 * retryCount)
     }
 }
 

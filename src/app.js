@@ -18,7 +18,7 @@ const run = async () => {
     })
 
     api.use('/files', cors(), express.static(path.join(__dirname, '../static')))
-    api.use('/api/assertions', assertionRouter)
+    // api.use('/api/assertions', assertionRouter)
     api.use('/api/scores', scoreRouter)
 
     const port = process.env.API_PORT
