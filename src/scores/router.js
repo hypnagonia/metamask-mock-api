@@ -16,7 +16,8 @@ const indexerCacheUrl = 'http://54.186.233.253/indexer/metamask-connector:b0fbad
 let cachedIndexerScores 
 scoreRouter.get('/indexer-scores', async (req, res) => {
     if (cachedIndexerScores) {
-        return cachedIndexerScores
+        res.send(cachedIndexerScores)
+        return 
     }
 
     const { data } = await axios.get(indexerCacheUrl)
@@ -28,7 +29,8 @@ scoreRouter.get('/indexer-scores', async (req, res) => {
 let cachedList 
 scoreRouter.get('/list', async (req, res) => {
     if (cachedList) {
-        return cachedList
+        res.json(cachedList)
+        return 
     }
 
     const list = getSnapMetaData()
