@@ -13,13 +13,26 @@ scoreRouter.get('/', async (req, res) => {
 
 const indexerCacheUrl = 'http://54.186.233.253/indexer/metamask-connector:b0fbad22d4e0324978cee3ab54d6e98fab6f0b3e2bf6b29b1cf4ff45d8752f84.csv'
 
+let cachedIndexerScores 
 scoreRouter.get('/indexer-scores', async (req, res) => {
+    if (cachedIndexerScores) {
+        return cachedIndexerScores
+    }
+
     const { data } = await axios.get(indexerCacheUrl)
+    cachedIndexerScores = data
+    setTimeout(() => cachedIndexerScores = undefined, 5000)
     res.send(data)
 })
 
+let cachedList 
 scoreRouter.get('/list', async (req, res) => {
+    if (cachedList) {
+        return cachedList
+    }
+
     const list = getSnapMetaData()
+    cachedList = list
     res.json(list)
 })
 
@@ -53,6 +66,7 @@ scoreRouter.post('/new', async (req, res) => {
         setTimeout(() => getScores(s3Bucket, s3Key), 0)
     }
 
+    cachedList = undefined
     res.json({ ok: 'ok' })
 })
 
