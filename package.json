@@ -9,9 +9,12 @@
     "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "csv-parse": "^5.5.5",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.4.4",
     "ethers": "^6.11.1",
     "express": "^4.18.2",
+    "ger": "^0.0.99",
     "graphql-request": "^6.1.0",
     "node-stream-zip": "^1.15.0"
   },

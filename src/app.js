@@ -5,6 +5,8 @@ const cors = require('cors')
 const path = require('path')
 const { assertionRouter } = require('./assertions/router')
 const { scoreRouter } = require('./scores/router')
+const { collabFilterRouter } = require('./collabFilter/router')
+
 const { run: metamaskIndexer } = require('./metamask/service')
 
 const run = async () => {
@@ -20,13 +22,14 @@ const run = async () => {
     api.use('/files', cors(), express.static(path.join(__dirname, '../static')))
     // api.use('/api/assertions', assertionRouter)
     api.use('/api/scores', scoreRouter)
+    api.use('/api/recommend', collabFilterRouter)
 
     const port = process.env.API_PORT
     const server = http.createServer(api).listen(port, () => {
         console.log(`API is up at http://localhost:${port}`)
     })
 
-    setTimeout(() => metamaskIndexer(), 0)
+    // setTimeout(() => metamaskIndexer(), 0)
     const close = () => server.close()
     return close
 }
