@@ -6,7 +6,7 @@ const esm = new g.MemESM()
 const ger = new g.GER(esm)
 ger.initialize_namespace('contracts')
 
-const filePath = './src/contracts.csv';
+const filePath = './contracts.csv';
 
 let results = []
 
